@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Levelling staff stocks</title>
+    <style>
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 25px;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+  
+    <center>
+        <h1>Levelling staff stocks</h1>
+        <br>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Total Levelling staffs available</th>
+                <th>Working</th>
+                <th>Not working</th>
+                <th>Requests for new</th>
+                <th>Cost of one Levelling staff</th>
+            </tr>
+            <tr>
+                <td>
+                    <span id="totallevellingStaffss">20</span>
+                    <button onclick="changeTotallevellingStaffss()">Change data</button>
+                </td>
+                <td>15</td>
+                <td>5</td>
+                <td>
+                    <span id="requestsForNew">5</span>
+                    <button onclick="changeRequestsForNew()">Change data</button>
+                </td>
+                <td>
+                    <input type="number" id="costOfOnelevellingStaffs" step="any" value="15000" onchange="calculateTotalCost()">
+                </td>
+            </tr>
+        </table>
+        <script>
+             function changeTotallevellingStaffss() {
+                
+                const newTotallevellingStaffss = parseInt(prompt("Enter the new total levellingStaffss value:"));
+
+                if (!isNaN(newTotallevellingStaffss)) {
+                    
+                    document.getElementById("totallevellingStaffss").textContent = newTotallevellingStaffss;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeRequestsForNew() {
+                
+                const newRequestsForNew = parseInt(prompt("Enter the new requests for new levellingStaffss value:"));
+
+                
+                if (!isNaN(newRequestsForNew)) {
+                    
+                    document.getElementById("requestsForNew").textContent = newRequestsForNew;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function calculateTotalCost() {
+             
+                const totallevellingStaffssAvailable = parseInt(document.getElementById("totallevellingStaffss").textContent);
+
+                const costOfOnelevellingStaffs = parseFloat(document.getElementById("costOfOnelevellingStaffs").value);
+
+                const requestsForNew = parseInt(document.getElementById("requestsForNew").textContent);
+
+                
+                const totalCost = costOfOnelevellingStaffs * (totallevellingStaffssAvailable + requestsForNew);
+                document.getElementById("totalCost").textContent = totalCost.toLocaleString();
+            }
+        </script>
+        <br>
+        <p>
+            <h1>Total cost(including the new requests)= <span id="totalCost"></span></h1>
+        </p>
+    </center>
+
+</body>
+</html>

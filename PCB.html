@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> pcb Stock Table</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1> PCB Stock Table</h1>
+    <table>
+        <tr>
+            <th>S.No</th>
+            <th>Types of PCB</th>
+            <th>Total PCB</th>
+            <th>Used PCB</th>
+            <th>Cost of each PCB</th>
+            <th>Request New Stock</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Single-sided PCB</td>
+            <td><span id="totalCopperWire">200</span> <button onclick="changeTotalWire('totalCopperWire')">Change</button></td>
+            <td><span id="usedCopperWire">50</span> <button onclick="changeUsedWire('usedCopperWire')">Change</button></td>
+            <td><span id="costCopperWire">10</span> <button onclick="changeCostWire('costCopperWire')">Change</button></td>
+            <td><button onclick="requestNewStock('Copper wire')">Request</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Double-sided PCB</td>
+            <td><span id="totalAluminiumWire">150</span> <button onclick="changeTotalWire('totalAluminiumWire')">Change</button></td>
+            <td><span id="usedAluminiumWire">30</span> <button onclick="changeUsedWire('usedAluminiumWire')">Change</button></td>
+            <td><span id="costAluminiumWire">10</span> <button onclick="changeCostWire('costAluminiumWire')">Change</button></td>
+            <td><button onclick="requestNewStock('Aluminium wire')">Request</button></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Multi-Layer PCB</td>
+            <td><span id="totalNichromeWire">100</span> <button onclick="changeTotalWire('totalNichromeWire')">Change</button></td>
+            <td><span id="usedNichromeWire">20</span> <button onclick="changeUsedWire('usedNichromeWire')">Change</button></td>
+            <td><span id="costNichromeWire">10</span> <button onclick="changeCostWire('costNichromeWire')">Change</button></td>
+            <td><button onclick="requestNewStock('Nichrome wire')">Request</button></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Metal Core PCB</td>
+            <td><span id="totalStrandedWire">60</span> <button onclick="changeTotalWire('totalStrandedWire')">Change</button></td>
+            <td><span id="usedStrandedWire">20</span> <button onclick="changeUsedWire('usedStrandedWire')">Change</button></td>
+            <td><span id="costStrandedWire">10</span> <button onclick="changeCostWire('costStrandedWire')">Change</button></td>
+            <td><button onclick="requestNewStock('Stranded wire')">Request</button></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Aluminium PCB</td>
+            <td><span id="totalElectromagneticWire">70</span> <button onclick="changeTotalWire('totalElectromagneticWire')">Change</button></td>
+            <td><span id="usedElectromagneticWire">30</span> <button onclick="changeUsedWire('usedElectromagneticWire')">Change</button></td>
+            <td><span id="costElectromagneticWire">10</span> <button onclick="changeCostWire('costElectromagneticWire')">Change</button></td>
+            <td><button onclick="requestNewStock('Electromagnetic wire')">Request</button></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <label for="newStockQuantity">Enter the quantity of new stock:</label>
+    <input type="number" id="newStockQuantity">
+    <button onclick="calculateCost()">Calculate Cost</button>
+    <p id="costResult"></p>
+
+    <script>
+        function requestNewStock(wireType) {
+            var quantity = parseInt(prompt("Enter the quantity of new stock for " + wireType + ":"));
+            if (!isNaN(quantity) && quantity >= 0) {
+                // Assuming the index of the table starts from 1
+                var rowIndex = parseInt(wireType[0]);
+                var table = document.querySelector("table");
+                var row = table.rows[rowIndex];
+                var currentStock = parseInt(row.cells[2].textContent);
+                var usedStock = parseInt(row.cells[3].textContent);
+
+                row.cells[2].textContent = currentStock + quantity;
+                row.cells[3].textContent = usedStock + quantity;
+
+                // Update the "cost of each wire" column with the new cost
+                calculateCostForWire(rowIndex);
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function calculateCostForWire(rowIndex) {
+            var table = document.querySelector("table");
+            var row = table.rows[rowIndex];
+            var currentStock = parseInt(row.cells[2].textContent);
+            var usedStock = parseInt(row.cells[3].textContent);
+            var costOfEachWire = parseInt(row.cells[4].textContent);
+            var newTotalCost = costOfEachWire * (currentStock - usedStock);
+            row.cells[4].textContent = newTotalCost;
+        }
+
+        function changeTotalWire(elementId) {
+            var newTotalWires = parseInt(prompt("Enter the new total wires value:"));
+            if (!isNaN(newTotalWires) && newTotalWires >= 0) {
+                document.getElementById(elementId).textContent = newTotalWires;
+                calculateCostForWire(parseInt(elementId[5]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function changeUsedWire(elementId) {
+            var newUsedWires = parseInt(prompt("Enter the new used wires value:"));
+            if (!isNaN(newUsedWires) && newUsedWires >= 0) {
+                document.getElementById(elementId).textContent = newUsedWires;
+                calculateCostForWire(parseInt(elementId[4]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function changeCostWire(elementId) {
+            var newCostWire = parseInt(prompt("Enter the new cost of each wire:"));
+            if (!isNaN(newCostWire) && newCostWire >= 0) {
+                document.getElementById(elementId).textContent = newCostWire;
+                calculateCostForWire(parseInt(elementId[4]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function calculateCost() {
+            var newStockQuantity = parseInt(document.getElementById("newStockQuantity").value);
+            if (!isNaN(newStockQuantity) && newStockQuantity >= 0) {
+                var unitCost = 10; 
+                var totalCost = newStockQuantity * unitCost;
+                document.getElementById("costResult").textContent = "The total cost for the new stock is: " + totalCost + " rupees.";
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+    </script>
+</body>
+</html>

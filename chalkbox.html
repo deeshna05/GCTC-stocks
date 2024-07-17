@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chalk Box Stock</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chalk Box Stock</h1>
+    <table>
+        <tr>
+            <th>Chalk Type</th>
+            <th>Total Boxes</th>
+            <th>Used Boxes</th>
+            <th>Required Boxes</th>
+        </tr>
+        <tr>
+            <td>Colored Chalk</td>
+            <td id="colored_total">10 boxes</td>
+            <td>25 boxes</td>
+            <td>8 boxes</td>
+        </tr>
+        <tr>
+            <td>White Chalk</td>
+            <td id="white_total">5 boxes</td>
+            <td>15 boxes</td>
+            <td>8 boxes</td>
+        </tr>
+        <!-- Add more rows for additional data if needed -->
+    </table>
+
+    <h2>Request New Chalk Boxes</h2>
+    <label for="colored_quantity">Colored Chalk Quantity:</label>
+    <input type="number" id="colored_quantity" min="1" value="1">
+    <button onclick="requestColoredChalk()">Request Colored Chalk</button>
+
+    <label for="white_quantity">White Chalk Quantity:</label>
+    <input type="number" id="white_quantity" min="1" value="1">
+    <button onclick="requestWhiteChalk()">Request White Chalk</button>
+
+    <script>
+        function requestColoredChalk() {
+            const coloredQuantity = parseInt(document.getElementById("colored_quantity").value);
+            const coloredTotalElement = document.getElementById("colored_total");
+
+            if (coloredQuantity <= 0) {
+                alert("Please enter a valid quantity (greater than zero).");
+                return;
+            }
+
+            let currentColoredTotal = parseInt(coloredTotalElement.textContent);
+            coloredTotalElement.textContent = currentColoredTotal + coloredQuantity;
+            alert(coloredQuantity + " boxes of colored chalk requested.");
+        }
+
+        function requestWhiteChalk() {
+            const whiteQuantity = parseInt(document.getElementById("white_quantity").value);
+            const whiteTotalElement = document.getElementById("white_total");
+
+            if (whiteQuantity <= 0) {
+                alert("Please enter a valid quantity (greater than zero).");
+                return;
+            }
+
+            let currentWhiteTotal = parseInt(whiteTotalElement.textContent);
+            whiteTotalElement.textContent = currentWhiteTotal + whiteQuantity;
+            alert(whiteQuantity + " boxes of white chalk requested.");
+        }
+    </script>
+</body>
+</html>

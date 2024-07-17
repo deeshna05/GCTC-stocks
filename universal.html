@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title> universal testing machine  STOCK</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 25px;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1> Universal testing machine stocks</h1>
+        <br>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Total universal testing machines available</th>
+                <th>Working</th>
+                <th>Not working</th>
+                <th>Requests for new</th>
+                <th>Cost of one universal testing machine</th>
+            </tr>
+            <tr>
+                <td>
+                    <span id="totalresistors">20</span>
+                    <button onclick="changeTotalresistors()">Change data</button>
+                </td>
+                <td>
+                    <span id="workingresistors">15</span>
+                    <button onclick="changeWorkingresistors()">Change data</button>
+                </td>
+                <td>
+                    <span id="notWorkingresistors">5</span>
+                    <button onclick="changeNotWorkingresistors()">Change data</button>
+                </td>
+                <td>
+                    <span id="requestsForNew">5</span>
+                    <button onclick="changeRequestsForNew()">Change data</button>
+                </td>
+                <td>
+                    <input type="number" id="costOfOneresistor" step="any" value="150" onchange="calculateTotalCost()">
+                </td>
+            </tr>
+        </table>
+        <script>
+            function changeTotalresistors() {
+                const newTotalresistors = parseInt(prompt("Enter the new total resistors value:"));
+
+                if (!isNaN(newTotalresistors)) {
+                    document.getElementById("totalresistors").textContent = newTotalresistors;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeWorkingresistors() {
+                const newWorkingresistors = parseInt(prompt("Enter the new working resistors value:"));
+
+                if (!isNaN(newWorkingresistors)) {
+                    document.getElementById("workingresistors").textContent = newWorkingresistors;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeNotWorkingresistors() {
+                const newNotWorkingresistors = parseInt(prompt("Enter the new not working resistors value:"));
+
+                if (!isNaN(newNotWorkingresistors)) {
+                    document.getElementById("notWorkingresistors").textContent = newNotWorkingresistors;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeRequestsForNew() {
+                const newRequestsForNew = parseInt(prompt("Enter the new requests for new resistors value:"));
+
+                if (!isNaN(newRequestsForNew)) {
+                    document.getElementById("requestsForNew").textContent = newRequestsForNew;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function calculateTotalCost() {
+                const totalresistorsAvailable = parseInt(document.getElementById("totalresistors").textContent);
+                const workingresistors = parseInt(document.getElementById("workingresistors").textContent);
+                const notWorkingresistors = parseInt(document.getElementById("notWorkingresistors").textContent);
+                const costOfOneresistor = parseFloat(document.getElementById("costOfOneresistor").value);
+                const requestsForNew = parseInt(document.getElementById("requestsForNew").textContent);
+
+                const totalCost = costOfOneresistor * (totalresistorsAvailable + requestsForNew);
+                document.getElementById("totalCost").textContent = totalCost.toLocaleString();
+            }
+        </script>
+        <br>
+        <p>
+            <h1>Total cost (including the new requests) = <span id="totalCost"></span></h1>
+        </p>
+    </center>
+</body>
+</html>

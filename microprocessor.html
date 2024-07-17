@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ultiprocessor stocks</title>
+    <style>
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 25px;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+  
+    <center>
+        <h1>Multiprocessor stocks</h1>
+        <br>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Total Multiprocessors available</th>
+                <th>Working</th>
+                <th>Not working</th>
+                <th>Requests for new</th>
+                <th>Cost of one multiprocessor</th>
+            </tr>
+            <tr>
+                <td>
+                    <span id="totalPrinters">20</span>
+                    <button onclick="changeTotalPrinters()">Change data</button>
+                </td>
+                <td>15</td>
+                <td>5</td>
+
+
+                <td>
+                    <span id="requestsForNew">5</span>
+                    <button onclick="changeRequestsForNew()">Change data</button>
+                </td>
+                <td>
+                    <input type="number" id="costOfOnePrinter" step="any" value="15000" onchange="calculateTotalCost()">
+                </td>
+            </tr>
+        </table>
+        <script>
+             function changeTotalPrinters() {
+                
+                const newTotalPrinters = parseInt(prompt("Enter the new total printers value:"));
+
+                if (!isNaN(newTotalPrinters)) {
+                    
+                    document.getElementById("totalPrinters").textContent = newTotalPrinters;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeRequestsForNew() {
+                
+                const newRequestsForNew = parseInt(prompt("Enter the new requests for new printers value:"));
+
+                
+                if (!isNaN(newRequestsForNew)) {
+                    
+                    document.getElementById("requestsForNew").textContent = newRequestsForNew;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function calculateTotalCost() {
+             
+                const totalPrintersAvailable = parseInt(document.getElementById("totalPrinters").textContent);
+
+                const costOfOnePrinter = parseFloat(document.getElementById("costOfOnePrinter").value);
+
+                const requestsForNew = parseInt(document.getElementById("requestsForNew").textContent);
+
+                
+                const totalCost = costOfOnePrinter * (totalPrintersAvailable + requestsForNew);
+                document.getElementById("totalCost").textContent = totalCost.toLocaleString();
+            }
+        </script>
+        <br>
+        <p>
+            <h1>Total cost(including the new requests)= <span id="totalCost"></span></h1>
+        </p>
+    </center>
+
+</body>
+</html>

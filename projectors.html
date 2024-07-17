@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PROJECTOR</title>
+    <style>
+        .table-container {
+    
+    display: flex;
+    justify-content: center;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>PROJECTOR STOCK</h1>
+    <table>
+        <tr>
+            <th>S.no</th>
+            <th>Condition</th>
+            <th>Working</th>
+            <th>Not Working</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>New</td>
+            <td>10</td>
+            <td>0</td>
+            <td id="new_total">10</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Used</td>
+            <td>5</td>
+            <td>2</td>
+            <td id="used_total">7</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Refurbished</td>
+            <td>3</td>
+            <td>1</td>
+            <td id="refurbished_total">4</td>
+        </tr>
+        
+    </table>
+
+    <h2>Request New Projector</h2>
+    <label for="condition">Select Condition:</label>
+    <select id="condition">
+        <option value="new">New</option>
+        <option value="used">Used</option>
+        <option value="refurbished">Refurbished</option>
+    </select>
+    <label for="quantity">Enter Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1">
+    <button onclick="requestprojector()">Request</button>
+
+    <script>
+        function requestprojector() {
+            const condition = document.getElementById("condition").value;
+            const quantity = parseInt(document.getElementById("quantity").value);
+            
+            if (quantity <= 0) {
+                alert("Please enter a valid quantity (greater than zero).");
+                return;
+            }
+
+            let totalElement;
+            switch (condition) {
+                case "new":
+                    totalElement = document.getElementById("new_total");
+                    break;
+                case "used":
+                    totalElement = document.getElementById("used_total");
+                    break;
+                case "refurbished":
+                    totalElement = document.getElementById("refurbished_total");
+                    break;
+                default:
+                    alert("Invalid condition selected.");
+                    return;
+            }
+
+            let currentTotal = parseInt(totalElement.textContent);
+            totalElement.textContent = currentTotal + quantity;
+            alert(quantity + " new projector requested.");
+        }
+    </script>
+</body>
+</html>

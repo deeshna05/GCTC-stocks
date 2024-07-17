@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dumpy level stand stocks</title>
+    <style>
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 25px;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+  
+    <center>
+        <h1>Dumpy level stand stocks</h1>
+        <br>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Total Dumpy level stands available</th>
+                <th>Working</th>
+                <th>Not working</th>
+                <th>Requests for new</th>
+                <th>Cost of one Dumpy level stand</th>
+            </tr>
+            <tr>
+                <td>
+                    <span id="totaldumpyStandss">20</span>
+                    <button onclick="changeTotaldumpyStandss()">Change data</button>
+                </td>
+                <td>15</td>
+                <td>5</td>
+                <td>
+                    <span id="requestsForNew">5</span>
+                    <button onclick="changeRequestsForNew()">Change data</button>
+                </td>
+                <td>
+                    <input type="number" id="costOfOnedumpyStands" step="any" value="15000" onchange="calculateTotalCost()">
+                </td>
+            </tr>
+        </table>
+        <script>
+             function changeTotaldumpyStandss() {
+                
+                const newTotaldumpyStandss = parseInt(prompt("Enter the new total dumpyStandss value:"));
+
+                if (!isNaN(newTotaldumpyStandss)) {
+                    
+                    document.getElementById("totaldumpyStandss").textContent = newTotaldumpyStandss;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function changeRequestsForNew() {
+                
+                const newRequestsForNew = parseInt(prompt("Enter the new requests for new dumpyStandss value:"));
+
+                
+                if (!isNaN(newRequestsForNew)) {
+                    
+                    document.getElementById("requestsForNew").textContent = newRequestsForNew;
+                    calculateTotalCost();
+                } else {
+                    alert("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            function calculateTotalCost() {
+             
+                const totaldumpyStandssAvailable = parseInt(document.getElementById("totaldumpyStandss").textContent);
+
+                const costOfOnedumpyStands = parseFloat(document.getElementById("costOfOnedumpyStands").value);
+
+                const requestsForNew = parseInt(document.getElementById("requestsForNew").textContent);
+
+                
+                const totalCost = costOfOnedumpyStands * (totaldumpyStandssAvailable + requestsForNew);
+                document.getElementById("totalCost").textContent = totalCost.toLocaleString();
+            }
+        </script>
+        <br>
+        <p>
+            <h1>Total cost(including the new requests)= <span id="totalCost"></span></h1>
+        </p>
+    </center>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ICsStock Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>ICs Stock Table</h1>
+    <table>
+        <tr>
+            <th>S.No</th>
+            <th>Types of IC's</th>
+            <th>Total IC's</th>
+            <th>Used IC's</th>
+            <th>Cost of each IC</th>
+            <th>Request New IC</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Microprocessors</td>
+            <td><span id="totalMicroprocessors">200</span> <button onclick="changeTotalIC('totalMicroprocessors')">Change</button></td>
+            <td><span id="usedMicroprocessors">50</span> <button onclick="changeUsedIC('usedMicroprocessors')">Change</button></td>
+            <td><span id="costMicroprocessors">10</span> <button onclick="changeCostIC('costMicroprocessors')">Change</button></td>
+            <td><button onclick="requestNewStock('Microprocessors')">Request</button></td>
+        </tr>
+        <!-- Similar rows for other types of ICs -->
+    </table>
+
+    <br>
+
+    <label for="newStockQuantity">Enter the quantity of new stock:</label>
+    <input type="number" id="newStockQuantity">
+    <button onclick="calculateCost()">Calculate Cost</button>
+    <p id="costResult"></p>
+
+    <script>
+        // JavaScript code goes here
+        function requestNewStock(resistorType) {
+            var quantity = parseInt(prompt("Enter the quantity of new stock for " + resistorType + ":"));
+            if (!isNaN(quantity) && quantity >= 0) {
+                // Assuming the index of the table starts from 1
+                var rowIndex = parseInt(resistorType[0]);
+                var table = document.querySelector("table");
+                var row = table.rows[rowIndex];
+                var currentStock = parseInt(row.cells[2].textContent);
+                var usedStock = parseInt(row.cells[3].textContent);
+
+                row.cells[2].textContent = currentStock + quantity;
+                row.cells[3].textContent = usedStock + quantity;
+
+                // Update the "cost of each resistor" column with the new cost
+                calculateCostForIC(rowIndex);
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function calculateCostForIC(rowIndex) {
+            var table = document.querySelector("table");
+            var row = table.rows[rowIndex];
+            var currentStock = parseInt(row.cells[2].textContent);
+            var usedStock = parseInt(row.cells[3].textContent);
+            var costOfEachIC = parseInt(row.cells[4].textContent);
+            var newTotalCost = costOfEachIC * (currentStock - usedStock);
+            row.cells[4].textContent = newTotalCost;
+        }
+
+        function changeTotalIC(elementId) {
+            var newTotalICs = parseInt(prompt("Enter the new total IC's value:"));
+            if (!isNaN(newTotalICs) && newTotalICs >= 0) {
+                document.getElementById(elementId).textContent = newTotalICs;
+                calculateCostForIC(parseInt(elementId[5]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function changeUsedIC(elementId) {
+            var newUsedICs = parseInt(prompt("Enter the new used IC's value:"));
+            if (!isNaN(newUsedICs) && newUsedICs >= 0) {
+                document.getElementById(elementId).textContent = newUsedICs;
+                calculateCostForIC(parseInt(elementId[4]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function changeCostIC(elementId) {
+            var newCostIC = parseInt(prompt("Enter the new cost of each IC:"));
+            if (!isNaN(newCostIC) && newCostIC >= 0) {
+                document.getElementById(elementId).textContent = newCostIC;
+                calculateCostForIC(parseInt(elementId[4]));
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+
+        function calculateCost() {
+            var newStockQuantity = parseInt(document.getElementById("newStockQuantity").value);
+            if (!isNaN(newStockQuantity) && newStockQuantity >= 0) {
+                var unitCost = 10; // Assuming each IC costs 10 rupees
+                var totalCost = newStockQuantity * unitCost;
+                document.getElementById("costResult").textContent = "The total cost for the new stock is: " + totalCost + " rupees.";
+            } else {
+                alert("Invalid input. Please enter a non-negative number.");
+            }
+        }
+    </script>
+</body>
+</html>

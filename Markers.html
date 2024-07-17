@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Markers Stock</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1> Markers Stock</h1>
+    <table>
+        <tr>
+            <th> Marker Type</th>
+            <th>Total Markers</th>
+            <th>Used Markers</th>
+            <th>Required Markers</th>
+        </tr>
+        <tr>
+            <td> Black</td>
+            <td id="colored_total">10 boxes</td>
+            <td> 25 </td>
+            <td> 8 </td>
+        </tr>
+
+          <tr>
+            <td> Green</td>
+            <td id="colored_total">13 boxes</td>
+            <td> 25 </td>
+            <td> 8 </td>
+        </tr>
+
+           <tr>
+            <td> Red</td>
+            <td id="colored_total">10 boxes</td>
+            <td> 35 </td>
+            <td> 8 </td>
+        </tr>
+        
+
+    </table>
+
+    <h2>Request New Markers</h2>
+
+    <script>
+    function requestBlackMarker() {
+        const blackQuantity = parseInt(document.getElementById("Black_quantity").value);
+        const blackTotalElement = document.getElementById("Black_total");
+
+        if (blackQuantity <= 0 || isNaN(blackQuantity)) {
+            alert("Please enter a valid quantity (greater than zero).");
+            return;
+        }
+
+        let currentBlackTotal = parseInt(blackTotalElement.textContent);
+        blackTotalElement.textContent = currentBlackTotal + blackQuantity;
+        alert(blackQuantity + " Black Marker requested.");
+    }
+
+    function requestGreen() {
+        const GreenQuantity = parseInt(document.getElementById("Green_quantity").value);
+        const GreenTotalElement = document.getElementById("Green_total");
+
+        if (GreenQuantity <= 0 || isNaN(GreenQuantity)) {
+            alert("Please enter a valid quantity (greater than zero).");
+            return;
+        }
+
+        let currentGreenTotal = parseInt(GreenTotalElement.textContent);
+        GreenTotalElement.textContent = currentGreenTotal + GreenQuantity;
+        alert(GreenQuantity + " Green Marker requested.");
+    }
+
+    function requestRed() {
+        const RedQuantity = parseInt(document.getElementById("Red_quantity").value);
+        const RedTotalElement = document.getElementById("Red_total");
+
+        if (RedQuantity <= 0 || isNaN(RedQuantity)) {
+            alert("Please enter a valid quantity (greater than zero).");
+            return;
+        }
+
+        let currentRedTotal = parseInt(RedTotalElement.textContent);
+        RedTotalElement.textContent = currentRedTotal + RedQuantity;
+        alert(RedQuantity + " Red Marker requested.");
+    }
+</script>
+
+</body>
+</html>
